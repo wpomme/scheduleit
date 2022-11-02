@@ -1,4 +1,5 @@
 import styles from "./ScheduleBox.module.scss"
+import {formatDate} from "../../utils/time/format-date";
 
 export type ScheduleBoxProps = {
   title: string
@@ -7,14 +8,11 @@ export type ScheduleBoxProps = {
 }
 
 export const ScheduleBox: React.FC<ScheduleBoxProps> = ({title, time, detail}) => {
-  const timeObj = new Date(time)
   return (
-    <details className={styles["details"]} >
-      <summary
-        className={styles["summary"]}
-      >
+    <details className={styles["details"]}>
+      <summary className={styles["summary"]}>
         <h2 className="schedule-box--title">{title}</h2>
-        <time className="schedule-box--time">{timeObj.toLocaleString("ja-JP")}</time>
+        <time className="schedule-box--time">{formatDate(time)}</time>
       </summary>
       <p>{detail}</p>
     </details>
