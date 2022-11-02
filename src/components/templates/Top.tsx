@@ -6,7 +6,7 @@ import {isAfterTime} from "../../utils/time/is-after-time";
 import {useState} from "react"
 
 export type TopProps = {
-  schedules: ScheduleListProps
+  schedules: ScheduleListProps["schedules"]
 }
 
 export const Top: React.FC<TopProps> = ({schedules}) => {
@@ -14,11 +14,9 @@ export const Top: React.FC<TopProps> = ({schedules}) => {
   const nowISOString = new Date().toISOString()
   // TODO make isBeforeTime and sortByAscDate
   const pastSchedules = schedules
-    .schedules
     .filter((s) => !isAfterTime(s.time, nowISOString))
     .sort((a, b) => sortByDecsDate(b.time, a.time))
   const nowSchedules = schedules
-    .schedules
     .filter((s) => isAfterTime(s.time, nowISOString))
     .sort((a, b) => sortByDecsDate(a.time, b.time))
   return (
