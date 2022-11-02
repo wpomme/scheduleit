@@ -1,0 +1,14 @@
+.schedule-list {
+  max-width: 760px;
+  margin: 0 auto;
+  list-style: none;
+
+  &-item {
+    background-color: white;
+    color: #2b2a33;
+
+    & + & {
+      margin-top: 8px;
+    }
+  }
+}

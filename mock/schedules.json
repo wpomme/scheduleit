@@ -1,0 +1,29 @@
+{
+    "schedules": [
+        {
+          "title": "first title",
+          "time": "2022-11-05T09:00:00.000+09:00",
+          "detail": "コンテンツの詳細"
+        },
+        {
+          "title": "second title",
+          "time": "2022-11-07T09:00:00.000+09:00",
+          "detail": "コンテンツの詳細"
+        },
+        {
+          "title": "second title",
+          "time": "2022-11-09T09:00:00.000+09:00",
+          "detail": "コンテンツの詳細"
+        },
+        {
+          "title": "second title",
+          "time": "2022-11-06T09:00:00.000+09:00",
+          "detail": "コンテンツの詳細"
+        },
+        {
+          "title": "second title",
+          "time": "2022-11-08T09:00:00.000+09:00",
+          "detail": "コンテンツの詳細"
+        }
+    ]
+}
