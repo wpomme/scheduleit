@@ -6,6 +6,7 @@ export type TopPageProps = {
 }
 
 export const TopPage:React.FC<TopPageProps> = ({data}) => {
+  const {schedules} = data
   return (
     <>
       <style global jsx>{`
@@ -16,7 +17,7 @@ export const TopPage:React.FC<TopPageProps> = ({data}) => {
       `}
       </style>
       <Top
-        schedules={data.schedules}
+        schedules={schedules}
       />
     </>
   )

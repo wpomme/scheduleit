@@ -1,5 +1,18 @@
-.summary {
-  list-style: none;
-  cursor: pointer;
-  transition: 0.3s;
+.schedule-box {
+  &__details {
+    transition: 0.3s;
+  }
+
+  &__summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__detail {
+    margin: 16px 0 0;
+  }
 }

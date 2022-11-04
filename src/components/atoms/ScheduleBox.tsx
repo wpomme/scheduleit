@@ -9,12 +9,12 @@ export type ScheduleBoxProps = {
 
 export const ScheduleBox: React.FC<ScheduleBoxProps> = ({title, time, detail}) => {
   return (
-    <details className={styles["details"]}>
-      <summary className={styles["summary"]}>
-        <h2 className="schedule-box--title">{title}</h2>
-        <time className="schedule-box--time">{formatDate(time)}</time>
+    <details className={styles["schedule-box__details"]}>
+      <summary className={styles["schedule-box__summary"]}>
+        <h2 className={styles["schedule-box__title"]}>{title}</h2>
+        <time className={styles["schedule-box__time"]}>{formatDate(time)}</time>
       </summary>
-      <p>{detail}</p>
+      <p className={styles["schedule-box__detail"]}>{detail}</p>
     </details>
   );
 }
