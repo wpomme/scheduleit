@@ -1,12 +1,35 @@
 import {Top, TopProps} from "../components/templates/Top";
 import {GetStaticProps} from "next"
+import {createClient} from 'microcms-js-sdk';
+import {useState} from "react"
+import {sortByDecsDate} from "../utils/time/sort-by-decs-date";
+import {isAfterTime} from "../utils/time/is-after-time";
 
 export type TopPageProps = {
-  data: TopProps
+  contents: {
+    schedules: TopProps["schedules"],
+  }
+  totalCount: number,
+  offset: number,
 }
 
-export const TopPage:React.FC<TopPageProps> = ({data}) => {
-  const {schedules} = data
+const client = createClient({
+  serviceDomain: process.env.SERVICE_DOMAIN,
+  apiKey: process.env.API_KEY,
+});
+
+export const TopPage:React.FC<TopPageProps> = ({contents}) => {
+  const [isDefaultView, setIsDefaultView] =useState<boolean>(true)
+  const {schedules} = contents
+  const nowISOString = new Date().toISOString()
+  // TODO make isBeforeTime and sortByAscDate
+  // TODO make makePastSchedules and makeDefaultSchedules in utils/schedules
+  const pastSchedules = schedules
+    .filter((s) => !isAfterTime(s.startDate, nowISOString))
+    .sort((a, b) => sortByDecsDate(b.startDate, a.startDate))
+  const defaultSchedules = schedules
+    .filter((s) => isAfterTime(s.startDate, nowISOString))
+    .sort((a, b) => sortByDecsDate(a.startDate, b.startDate))
   return (
     <>
       <style global jsx>{`
@@ -17,21 +40,32 @@ export const TopPage:React.FC<TopPageProps> = ({data}) => {
       `}
       </style>
       <Top
-        schedules={schedules}
+        schedules={isDefaultView ? defaultSchedules : pastSchedules}
+        onClick={() => {
+          setIsDefaultView(!isDefaultView)
+        }}
+        isDefaultView={isDefaultView}
       />
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps = async() => {
-  const res = await fetch("http://localhost:30000/schedules")
-  const schedules: TopProps = await res.json()
+  // const res = await fetch("http://localhost:30000/schedules")
+  // const schedules: TopProps = await res.json()
+
+  const data = await client
+    .get({
+      endpoint: 'schedules',
+    })
+    .catch((err) => console.error(err));
 
   return {
     props: {
-      data: {
-        schedules,
-      },
+      ...data,
+      contents: {
+        schedules: data.contents,
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ describe("Render ScheduleBox", () => {
     const {getByRole} = render(
       <ScheduleBox
         title="First title"
-        time="2022/11/01"
+        startDate="2022/11/01"
         detail="describe here"
       />
     )
