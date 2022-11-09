@@ -12,9 +12,20 @@ export const Top: React.FC<TopProps> = ({schedules, onClick, isDefaultView}) => 
   return (
     <main className={styles["main"]}>
       <h1 className={styles["title"]}>Schedule It!</h1>
-      <Button onClick={onClick} >
-        {isDefaultView ? "過去のイベント" : "現在のイベント"}
-      </Button>
+      <div className={styles["buttons"]}>
+        <Button
+          onClick={onClick}
+          disabled={isDefaultView}
+        >
+          現在のイベント
+        </Button>
+        <Button
+          onClick={onClick}
+          disabled={!isDefaultView}
+        >
+          過去のイベント
+        </Button>
+      </div>
       <ScheduleList schedules={schedules} />
     </main>
   );

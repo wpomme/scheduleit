@@ -9,6 +9,7 @@ describe("Render ScheduleBox", () => {
         title="First title"
         startDate="2022/11/01"
         detail="describe here"
+        place="shibuya clubhouse"
       />
     )
     expect(getByRole("heading")).toHaveTextContent("First title")

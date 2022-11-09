@@ -12,6 +12,16 @@
     margin: 0;
   }
 
+  &__place {
+    display: flex;
+    column-gap: 4px;
+    margin-top: 8px;
+    > p {
+      margin: 0;
+      line-height: 1.2
+    }
+  }
+
   &__detail {
     margin: 16px 0 0;
   }

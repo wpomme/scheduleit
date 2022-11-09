@@ -51,9 +51,6 @@ export const TopPage:React.FC<TopPageProps> = ({contents}) => {
 }
 
 export const getStaticProps: GetStaticProps = async() => {
-  // const res = await fetch("http://localhost:30000/schedules")
-  // const schedules: TopProps = await res.json()
-
   const data = await client
     .get({
       endpoint: 'schedules',

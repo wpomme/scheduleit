@@ -1,5 +1,5 @@
 .button {
-  // CSS button reset
+  //TODO CSS button reset
   border: none;
   cursor: pointer;
   outline: none;
@@ -26,4 +26,14 @@
   }
 }
 
+.button:disabled {
+  background-color: #2b2a33;
+  color: white;
+  box-shadow: 0 1px 0 black;
+  border-radius: 0;
+  border-bottom: 2px solid white;
 
+  &:hover {
+    opacity: 1;
+  }
+}
