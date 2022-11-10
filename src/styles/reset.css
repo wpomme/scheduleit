@@ -73,3 +73,11 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+/* Addtional CSS Reset */
+button {
+  border: none;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+}
