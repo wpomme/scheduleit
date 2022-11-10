@@ -38,13 +38,6 @@ export const TopPage:React.FC<TopPageProps> = ({contents}) => {
       <Head>
         <title>{config.title ? config.title : "Schedule It"}</title>
       </Head>
-      <style global jsx>{`
-        body {
-          background-color: #2b2a33;
-          color: white;
-        }
-      `}
-      </style>
       <Top
         schedules={isDefaultView ? defaultSchedules : pastSchedules}
         fixedContents={config.fixedContents}

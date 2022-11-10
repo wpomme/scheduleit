@@ -1,3 +1,6 @@
+import '../styles/variables.css'
+import '../styles/global.css'
+import '../styles/reset.css'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
