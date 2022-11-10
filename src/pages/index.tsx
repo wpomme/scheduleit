@@ -4,10 +4,15 @@ import {createClient} from 'microcms-js-sdk';
 import {useState} from "react"
 import {sortByDecsDate} from "../utils/time/sort-by-decs-date";
 import {isAfterTime} from "../utils/time/is-after-time";
+import Head from 'next/head'
 
 export type TopPageProps = {
   contents: {
     schedules: TopProps["schedules"],
+    config: {
+      fixedContents?: TopProps["fixedContents"],
+      title?: string,
+    },
   }
   totalCount: number,
   offset: number,
@@ -20,10 +25,8 @@ const client = createClient({
 
 export const TopPage:React.FC<TopPageProps> = ({contents}) => {
   const [isDefaultView, setIsDefaultView] =useState<boolean>(true)
-  const {schedules} = contents
+  const {schedules, config} = contents
   const nowISOString = new Date().toISOString()
-  // TODO make isBeforeTime and sortByAscDate
-  // TODO make makePastSchedules and makeDefaultSchedules in utils/schedules
   const pastSchedules = schedules
     .filter((s) => !isAfterTime(s.startDate, nowISOString))
     .sort((a, b) => sortByDecsDate(b.startDate, a.startDate))
@@ -32,6 +35,9 @@ export const TopPage:React.FC<TopPageProps> = ({contents}) => {
     .sort((a, b) => sortByDecsDate(a.startDate, b.startDate))
   return (
     <>
+      <Head>
+        <title>{config.title ? config.title : "Schedule It"}</title>
+      </Head>
       <style global jsx>{`
         body {
           background-color: #2b2a33;
@@ -41,6 +47,8 @@ export const TopPage:React.FC<TopPageProps> = ({contents}) => {
       </style>
       <Top
         schedules={isDefaultView ? defaultSchedules : pastSchedules}
+        fixedContents={config.fixedContents}
+        title={config.title}
         onClick={() => {
           setIsDefaultView(!isDefaultView)
         }}
@@ -56,12 +64,21 @@ export const getStaticProps: GetStaticProps = async() => {
       endpoint: 'schedules',
     })
     .catch((err) => console.error(err));
+  const config = await client
+    .get({
+      endpoint: 'config',
+    })
+    .catch((err) => console.error(err));
 
   return {
     props: {
       ...data,
       contents: {
         schedules: data.contents,
+        config: {
+          fixedContents: config.fixedContents,
+          title: config.title,
+        },
       }
     }
   }
