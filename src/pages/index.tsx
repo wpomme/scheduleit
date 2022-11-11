@@ -1,38 +1,23 @@
 import {Top, TopProps} from "../components/templates/Top";
+import {client} from "../api/client";
 import {GetStaticProps} from "next"
-import {createClient} from 'microcms-js-sdk';
 import {useState} from "react"
-import {sortByDecsDate} from "../utils/time/sort-by-decs-date";
-import {isAfterTime} from "../utils/time/is-after-time";
 import Head from 'next/head'
 
 export type TopPageProps = {
   contents: {
-    schedules: TopProps["schedules"],
+    defaultSchedules: TopProps["schedules"],
+    pastSchedules: TopProps["schedules"],
     config: {
       fixedContents?: TopProps["fixedContents"],
       title?: string,
     },
   }
-  totalCount: number,
-  offset: number,
 }
-
-const client = createClient({
-  serviceDomain: process.env.SERVICE_DOMAIN,
-  apiKey: process.env.API_KEY,
-});
 
 export const TopPage:React.FC<TopPageProps> = ({contents}) => {
   const [isDefaultView, setIsDefaultView] =useState<boolean>(true)
-  const {schedules, config} = contents
-  const nowISOString = new Date().toISOString()
-  const pastSchedules = schedules
-    .filter((s) => !isAfterTime(s.startDate, nowISOString))
-    .sort((a, b) => sortByDecsDate(b.startDate, a.startDate))
-  const defaultSchedules = schedules
-    .filter((s) => isAfterTime(s.startDate, nowISOString))
-    .sort((a, b) => sortByDecsDate(a.startDate, b.startDate))
+  const {defaultSchedules, pastSchedules, config} = contents
   return (
     <>
       <Head>
@@ -52,9 +37,23 @@ export const TopPage:React.FC<TopPageProps> = ({contents}) => {
 }
 
 export const getStaticProps: GetStaticProps = async() => {
-  const data = await client
+  const nowISOString = new Date().toISOString()
+  const defaultData = await client
     .get({
       endpoint: 'schedules',
+      queries: {
+        filters: `startDate[greater_than]${nowISOString}`,
+        orders: `startDate`,
+      }
+    })
+    .catch((err) => console.error(err));
+  const pastData = await client
+    .get({
+      endpoint: 'schedules',
+      queries: {
+        filters: `startDate[less_than]${nowISOString}`,
+        orders: `-startDate`,
+      }
     })
     .catch((err) => console.error(err));
   const config = await client
@@ -65,9 +64,9 @@ export const getStaticProps: GetStaticProps = async() => {
 
   return {
     props: {
-      ...data,
       contents: {
-        schedules: data.contents,
+        defaultSchedules: defaultData.contents,
+        pastSchedules: pastData.contents,
         config: {
           fixedContents: config.fixedContents,
           title: config.title,
