@@ -1,6 +1,7 @@
 import styles from "./ScheduleBox.module.scss"
 import {formatDate} from "../../utils/time/format-date";
 import LocationOnIcon from "../../../public/svg/location-on-20-pixel.svg";
+import ScheduleIcon from "../../../public/svg/schedule-20-pixel.svg";
 
 export type ScheduleBoxProps = {
   title: string
@@ -9,17 +10,25 @@ export type ScheduleBoxProps = {
   place?: string
 }
 
+const iconSize = 20
+
 export const ScheduleBox: React.FC<ScheduleBoxProps> = ({title, startDate, detail, place}) => {
   return (
     <details className={styles["schedule-box__details"]}>
       <summary className={styles["schedule-box__summary"]}>
         <h2 className={styles["schedule-box__title"]}>{title}</h2>
-        <time className={styles["schedule-box__time"]}>{formatDate(startDate)}</time>
+        <div className={styles["schedule-box__icon-container"]}>
+          <ScheduleIcon
+            width={iconSize}
+            height={iconSize}
+          />
+          <time className={styles["schedule-box__time"]}>{formatDate(startDate)}</time>
+        </div>
         {place && (
-          <div className={styles["schedule-box__place"]}>
+          <div className={styles["schedule-box__icon-container"]}>
             <LocationOnIcon
-              width={20}
-              height={20}
+              width={iconSize}
+              height={iconSize}
             />
             <p>{place}</p>
           </div>
@@ -34,4 +43,3 @@ export const ScheduleBox: React.FC<ScheduleBoxProps> = ({title, startDate, detai
     </details>
   );
 }
-

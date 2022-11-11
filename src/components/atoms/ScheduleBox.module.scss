@@ -8,13 +8,13 @@
     cursor: pointer;
   }
 
-  &__place {
+  &__icon-container {
     display: flex;
     column-gap: 4px;
     margin-top: 8px;
-    > p {
+    > time, p {
       margin: 0;
-      line-height: 1.2
+      line-height: 1.2;
     }
   }
 
