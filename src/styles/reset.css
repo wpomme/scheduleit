@@ -81,3 +81,8 @@ button {
   outline: none;
   appearance: none;
 }
+
+ul,
+ol {
+  padding: 0;
+}

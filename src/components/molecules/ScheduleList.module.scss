@@ -1,7 +1,15 @@
+@use "../../styles/scss/mixins";
+
+$scheduleListWidth: 720px;
+
 .schedule-list {
-  max-width: 760px;
+  max-width: $scheduleListWidth;
   margin: 0 auto;
   list-style: none;
+
+  @include mixins.mq(sp) {
+    padding: 0 24px;
+  }
 
   &-item {
     margin-top: 16px;

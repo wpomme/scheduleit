@@ -3,16 +3,26 @@ import {formatDate} from "../../utils/time/format-date";
 import LocationOnIcon from "../../../public/svg/location-on-20-pixel.svg";
 import ScheduleIcon from "../../../public/svg/schedule-20-pixel.svg";
 
+export type Image = {
+  image: {
+    url: string
+    height?: number;
+    width?: number;
+  }
+  alt: string
+}
+
 export type ScheduleBoxProps = {
   title: string
   startDate: string
   detail?: string
   place?: string
+  images?: Image[]
 }
 
 const iconSize = 20
 
-export const ScheduleBox: React.FC<ScheduleBoxProps> = ({title, startDate, detail, place}) => {
+export const ScheduleBox: React.FC<ScheduleBoxProps> = ({title, startDate, detail, place, images}) => {
   return (
     <details className={styles["schedule-box__details"]}>
       <summary className={styles["schedule-box__summary"]}>
@@ -40,6 +50,19 @@ export const ScheduleBox: React.FC<ScheduleBoxProps> = ({title, startDate, detai
           __html: detail,
         }}>
       </article>
+      {images && (
+        <div
+          className={styles["schedule-box__image-set"]}
+        >
+          {images.map((props, index) => (
+            <img
+              src={props.image.url}
+              alt={props.alt}
+              key={index.toString()}
+            />
+          ))}
+        </div>
+      )}
     </details>
   );
 }
