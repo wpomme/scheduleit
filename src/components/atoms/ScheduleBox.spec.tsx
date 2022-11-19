@@ -1,3 +1,4 @@
+import React from "react"
 import {ScheduleBox} from "./ScheduleBox"
 import {render} from "@testing-library/react"
 import '@testing-library/jest-dom'

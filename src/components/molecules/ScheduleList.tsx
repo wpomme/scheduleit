@@ -1,3 +1,4 @@
+import React from "react"
 import styles from "./ScheduleList.module.scss"
 import {ScheduleBoxProps, ScheduleBox} from "../atoms/ScheduleBox"
 import {FixedContentsBox, FixedContentsBoxProps} from "../atoms/FixedContentsBox";

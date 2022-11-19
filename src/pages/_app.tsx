@@ -1,3 +1,4 @@
+import React from "react"
 import '../styles/variables.css'
 import '../styles/global.css'
 import '../styles/reset.css'

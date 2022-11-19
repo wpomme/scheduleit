@@ -1,3 +1,4 @@
+import React from "react"
 import styles from "./Top.module.scss"
 import {ScheduleList, ScheduleListProps} from "../molecules/ScheduleList";
 import {Button, ButtonProps} from "../atoms/Button";

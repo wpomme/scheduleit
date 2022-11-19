@@ -1,3 +1,5 @@
+import React from "react"
+import Image from "next/image";
 import styles from "./ScheduleBox.module.scss"
 import {formatDate} from "../../utils/time/format-date";
 import LocationOnIcon from "../../../public/svg/location-on-20-pixel.svg";
@@ -47,7 +49,7 @@ export const ScheduleBox: React.FC<ScheduleBoxProps> = ({title, startDate, detai
       <article
         className={styles["schedule-box__detail"]}
         dangerouslySetInnerHTML={{
-          __html: detail,
+          __html: detail ? detail : "",
         }}>
       </article>
       {images && (

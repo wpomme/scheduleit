@@ -1,3 +1,4 @@
+import React from "react"
 import styles from "./FixedContentsBox.module.scss"
 
 export type FixedContentsBoxProps = {
@@ -14,7 +15,7 @@ export const FixedContentsBox: React.FC<FixedContentsBoxProps> = ({title, detail
       <article
         className={styles["fixed-contents-box__detail"]}
         dangerouslySetInnerHTML={{
-          __html: detail,
+          __html: detail ? detail : "",
         }}>
       </article>
     </details>

@@ -1,3 +1,4 @@
+import React from "react"
 import {Top, TopProps} from "../components/templates/Top";
 import {client} from "../api/client";
 import {GetStaticProps} from "next"
