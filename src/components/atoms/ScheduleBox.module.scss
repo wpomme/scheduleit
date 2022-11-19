@@ -13,7 +13,8 @@
     column-gap: 4px;
     margin-top: 8px;
 
-    > time, p {
+    > time,
+    p {
       margin: 0;
       line-height: 1.2;
     }
@@ -22,7 +23,8 @@
   &__detail {
     margin: 16px 16px 0;
 
-    > h1, h2 {
+    > h1,
+    h2 {
       text-align: center;
     }
   }

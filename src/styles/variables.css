@@ -1,6 +1,6 @@
 :root {
-    --base-color-background: #2b2a33;
-    --base-color-text: white;
-    --reverse-base-color-background: var(--base-color-text);
-    --reverse-base-color-text: var(--base-color-background);
+  --base-color-background: #2b2a33;
+  --base-color-text: white;
+  --reverse-base-color-background: var(--base-color-text);
+  --reverse-base-color-text: var(--base-color-background);
 }

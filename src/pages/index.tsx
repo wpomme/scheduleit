@@ -1,24 +1,24 @@
-import React from "react"
-import {Top, TopProps} from "../components/templates/Top";
-import {client} from "../api/client";
-import {GetStaticProps} from "next"
-import {useState} from "react"
-import Head from 'next/head'
+import React from "react";
+import { Top, TopProps } from "../components/templates/Top";
+import { client } from "../api/client";
+import { GetStaticProps } from "next";
+import { useState } from "react";
+import Head from "next/head";
 
 export type TopPageProps = {
   contents: {
-    defaultSchedules: TopProps["schedules"],
-    pastSchedules: TopProps["schedules"],
+    defaultSchedules: TopProps["schedules"];
+    pastSchedules: TopProps["schedules"];
     config: {
-      fixedContents?: TopProps["fixedContents"],
-      title?: string,
-    },
-  }
-}
+      fixedContents?: TopProps["fixedContents"];
+      title?: string;
+    };
+  };
+};
 
-export const TopPage:React.FC<TopPageProps> = ({contents}) => {
-  const [isDefaultView, setIsDefaultView] =useState<boolean>(true)
-  const {defaultSchedules, pastSchedules, config} = contents
+export const TopPage: React.FC<TopPageProps> = ({ contents }) => {
+  const [isDefaultView, setIsDefaultView] = useState<boolean>(true);
+  const { defaultSchedules, pastSchedules, config } = contents;
   return (
     <>
       <Head>
@@ -29,37 +29,37 @@ export const TopPage:React.FC<TopPageProps> = ({contents}) => {
         fixedContents={config.fixedContents}
         title={config.title}
         onClick={() => {
-          setIsDefaultView(!isDefaultView)
+          setIsDefaultView(!isDefaultView);
         }}
         isDefaultView={isDefaultView}
       />
     </>
-  )
-}
+  );
+};
 
-export const getStaticProps: GetStaticProps = async() => {
-  const nowISOString = new Date().toISOString()
+export const getStaticProps: GetStaticProps = async () => {
+  const nowISOString = new Date().toISOString();
   const defaultData = await client
     .get({
-      endpoint: 'schedules',
+      endpoint: "schedules",
       queries: {
         filters: `startDate[greater_than]${nowISOString}`,
         orders: `startDate`,
-      }
+      },
     })
     .catch((err) => console.error(err));
   const pastData = await client
     .get({
-      endpoint: 'schedules',
+      endpoint: "schedules",
       queries: {
         filters: `startDate[less_than]${nowISOString}`,
         orders: `-startDate`,
-      }
+      },
     })
     .catch((err) => console.error(err));
   const config = await client
     .get({
-      endpoint: 'config',
+      endpoint: "config",
     })
     .catch((err) => console.error(err));
 
@@ -72,9 +72,9 @@ export const getStaticProps: GetStaticProps = async() => {
           fixedContents: config.fixedContents,
           title: config.title,
         },
-      }
-    }
-  }
-}
+      },
+    },
+  };
+};
 
-export default TopPage
+export default TopPage;

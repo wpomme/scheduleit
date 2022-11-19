@@ -1,9 +1,9 @@
-import React from "react"
-import '../styles/variables.css'
-import '../styles/global.css'
-import '../styles/reset.css'
-import { AppProps } from 'next/app'
-import Head from 'next/head'
+import React from "react";
+import "../styles/variables.css";
+import "../styles/global.css";
+import "../styles/reset.css";
+import { AppProps } from "next/app";
+import Head from "next/head";
 
 const App = ({ Component, pageProps }: AppProps) => (
   <>
@@ -17,6 +17,6 @@ const App = ({ Component, pageProps }: AppProps) => (
     </Head>
     <Component {...pageProps} />
   </>
-)
+);
 
-export default App
+export default App;
